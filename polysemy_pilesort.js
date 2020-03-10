@@ -6,7 +6,13 @@ var ref = new Firebase("https://wordsense-pilesort.firebaseio.com/polysemy_piles
 var userRef = ref.child("subjectInfo");
 var IPuserRef = ref.child("subjectByIP");
 var workerIDuserRef = ref.child("subjectByWorkerID");
-var stimuliRef = ref.child("inputs");
+var totalWordList = []
+var stimuliRef = ref.child("inputs").once("value", function(snapshot) {
+    allStimuli = snapshot.val()
+    Object.keys(allStimuli).forEach(function (key) {
+        totalWordList.push(key)
+    })
+})
 var trialRef = ref.child("trials");
 var thisUserRef;
 var userID; //unique hash from firebase
@@ -26,7 +32,7 @@ var sentenceIndex = 0;
 //var wordList = shuffle(wordSpace).slice(0,totalTrials); //list of stimuli words for this participant
 //var wordList = ["cell", "figure", "foot", "form", "girl", "home", "paper", "table"];
 //TODO: Query this from Firebase?
-var totalWordList = ['case','church','family','feet','question','time'] 
+//var totalWordList = ['case','church','family','feet','question','time'] 
 var wordList = shuffle(totalWordList).slice(0,totalTrials);
 var stimuli; //stimuli objects associated with current word
 var sentenceKeys = []; //randomized list of sentence keys for current word
