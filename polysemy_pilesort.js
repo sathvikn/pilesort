@@ -1,7 +1,7 @@
 /*************************************
    firebase references
  *************************************/
-var ref = new Firebase("https://brilliant-heat-3296.firebaseio.com/polysemy_pilesort");
+var ref = new Firebase("https://wordsense-pilesort.firebaseio.com/polysemy_pilesort");
 //var ref = firebase.database().ref().child("polysemy_pilesort");
 var userRef = ref.child("subjectInfo");
 var IPuserRef = ref.child("subjectByIP");
@@ -11,7 +11,7 @@ var trialRef = ref.child("trials");
 var thisUserRef;
 var userID; //unique hash from firebase
 var userIP;
-var workerID=getParamFromURL("expID"); //amazon worker id
+var workerID=getParamFromURL("workerID"); //amazon worker id
 var userExists;
 
 /*************************************
@@ -25,6 +25,7 @@ var sentenceIndex = 0;
 //var wordSpace = ["chicken", "shower"]; //list of possible words, in alphabetical order
 //var wordList = shuffle(wordSpace).slice(0,totalTrials); //list of stimuli words for this participant
 //var wordList = ["cell", "figure", "foot", "form", "girl", "home", "paper", "table"];
+//TODO: Query this from Firebase?
 var totalWordList = ['case','church','family','feet','question','time'] 
 var wordList = shuffle(totalWordList).slice(0,totalTrials);
 var stimuli; //stimuli objects associated with current word
@@ -411,8 +412,8 @@ function onCanvasStyle($item) {
 //   });
 // }
 
-function userExistsCallback(IPD, IPDexists) {
-  if (IPDexists) {
+function userExistsCallback(IPD, IPDexists, debug) {
+  if (IPDexists && !debug) {
     //alert('user ' + IP + ' exists!');
     $("#consent").addClass("hidden");
     $("#userExists").removeClass("hidden");
@@ -439,7 +440,9 @@ function checkIfUserExists(IP, workerID, checkUser) {
   //var IPRef = new Firebase(USERS_LOCATION);
   IPuserRef.child(IP).once('value', function(snapshot) {
     var exists1 = (snapshot.val() != null);
-    userExistsCallback(IP, exists1);
+    //TODO: Remove the debug field
+    debug = true;
+    userExistsCallback(IP, exists1, debug);
     IPcheck = "done";
   });
 
