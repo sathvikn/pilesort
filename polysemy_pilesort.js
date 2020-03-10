@@ -454,7 +454,8 @@ function checkIfUserExists(IP, workerID, checkUser) {
 
   workerIDuserRef.child(workerID).once('value', function(snapshot) {
     var exists2 = (snapshot.val() != null);
-    userExistsCallback(workerID, exists2);
+    debug = true;
+    userExistsCallback(workerID, exists2, debug);
     if (userExists != null && IPcheck != null) {
         checkUser.resolve();
     }
