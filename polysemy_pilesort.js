@@ -6,13 +6,7 @@ var ref = new Firebase("https://wordsense-pilesort.firebaseio.com/polysemy_piles
 var userRef = ref.child("subjectInfo");
 var IPuserRef = ref.child("subjectByIP");
 var workerIDuserRef = ref.child("subjectByWorkerID");
-var totalWordList = []
-var stimuliRef = ref.child("inputs").once("value", function(snapshot) {
-    allStimuli = snapshot.val()
-    Object.keys(allStimuli).forEach(function (key) {
-        totalWordList.push(key)
-    })
-})
+var stimuliRef = ref.child("inputs");
 var trialRef = ref.child("trials");
 var thisUserRef;
 var userID; //unique hash from firebase
@@ -23,7 +17,7 @@ var userExists;
 /*************************************
    input variables
  *************************************/
-var totalTrials = 6;
+//var totalTrials = 6;
 var currentIndex = 0; //index of current trial. will start indexing at 1, once newTrial() is called.
 var sentenceIndex = 0;
 //var sorted = range(1, totalTrials); //int list starting at 1, with length=totalTrials
@@ -33,7 +27,18 @@ var sentenceIndex = 0;
 //var wordList = ["cell", "figure", "foot", "form", "girl", "home", "paper", "table"];
 //TODO: Query this from Firebase?
 //var totalWordList = ['case','church','family','feet','question','time'] 
-var wordList = shuffle(totalWordList).slice(0,totalTrials);
+var totalWordList = []
+var totalTrials = 20
+var wordList = []
+stimuliRef.once("value", function(snapshot) {
+    allStimuli = snapshot.val()
+    Object.keys(allStimuli).forEach(function (key) {
+        totalWordList.push(key)
+    })
+    wordList = shuffle(totalWordList).slice(0, totalTrials);
+})
+
+//var wordList = shuffle(totalWordList).slice(0,totalTrials);
 var stimuli; //stimuli objects associated with current word
 var sentenceKeys = []; //randomized list of sentence keys for current word
 var trialSize = 12; //max number of sentences in each trial
@@ -128,13 +133,13 @@ function newTrial() {
     var getStimuli = $.Deferred();
     stimuliRef.child(wordList[currentIndex-1]).once("value", function(snapshot) {
         stimuli = snapshot.val();
-        var inputSize = snapshot.val()["sentences"];
+        var inputSize = snapshot.val()["senses"];
         //stimuli.splice(parseInt(snapshot.key())-1, 0, snapshot.val());
 
         if(inputSize > 0  &&  Object.keys(stimuli).length > inputSize ) {
             //sentenceKeys = sList(inputSize, trialSize);
             $.each(stimuli, function(key, value) {
-                if(key!='sentences' && key!='word'){sentenceKeys.push(key);}
+                if(key!='senses' && key!='type'){sentenceKeys.push(key);}
             });
             sentenceKeys = shuffle(sentenceKeys); //randomize
             getStimuli.resolve();
