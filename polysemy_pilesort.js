@@ -152,9 +152,9 @@ function newTrial() {
     //var loadSentences = $.Deferred();
     getStimuli.done(function() {
         //load instruction keywords
-    $("#info").html('<b>Instructions: </b>You will see a total of ' +sentenceKeys.length+ ' sentences that include the word <b style="background-color:yellow">' 
-        + getWordFromType(wordList[currentIndex-1])+'</b>. Each sentence is represented by a numbered square in the grey canvas below. The full content of each sentence will be displayed below the canvas. Drag the squares around in the canvas so that: <ul><li><b>Sentences with similar meanings for "' 
-    +getWordFromType(wordList[currentIndex-1])+ '" are closest to each other</b></li><li><b> Sentences with the least similar are farthest apart</b></li></ul>'+ 'Do not refresh this page until the HIT is finished, and make sure you can see the whole canvas in your browser.')
+    $("#info").html('<b>Instructions: </b>You will see a total of ' +sentenceKeys.length+ ' definitions of the word <b style="background-color:yellow">' 
+        + getWordFromType(wordList[currentIndex-1])+'</b>. Each definition is represented by a numbered square in the grey canvas below. The full content of each definition, as well as an example sentence, will be displayed below the canvas. Drag the squares around in the canvas so that: <ul><li><b>The most similar meanings for "' 
+    +getWordFromType(wordList[currentIndex-1])+ '" are closest to each other</b></li><li><b> Definitions with the least similarity are farthest apart</b></li></ul>'+ 'Do not refresh this page until the task is finished, and make sure you can see the whole canvas in your browser.')
 
         dropOneSentence();
     })
@@ -190,7 +190,8 @@ function dropOneSentence(){
         //$(this).css("border-style", "dashed");
         //$("#hover-text" ).text(stimuli[this.id]["sentence"]);
         if((lastClicked != this.id) ) {
-            $("#hover-text" ).html(stimuli[this.id]['def']);
+           // var defnSentHTML = '<p>' + stimuli[this.id]['def'] + '</p><p>Example Sentence: ' +  stimuli[this.id]['sent'] + '</p>'
+            $("#hover-text" ).html(formatSentenceDefn(this.id));
             $("#hover").css("background-color", $(this).css("background-color"));
             $(this).css("border-style", "dashed");
         }
@@ -205,8 +206,8 @@ function dropOneSentence(){
     .mousedown(function() {
         //$("#label-text" ).text(stimuli[this.id]["sentence"]);
         lastClicked = this.id;
-
-        $("#label-text" ).html('<p>' + stimuli[this.id]['def'] + '</p><p>Example Sentence: ' +  stimuli[this.id]['sent'] + '</p>');
+       // var defnSentHTML = '<p>' + stimuli[this.id]['def'] + '</p><p>Example Sentence: ' +  stimuli[this.id]['sent'] + '</p>'
+        $("#label-text" ).html(formatSentenceDefn(this.id));
 
         $("#label").css("background-color", $(this).css("background-color"));
         $(this).css("border-style", "dashed");
@@ -483,6 +484,9 @@ function getWordFromType(typeString) {
     return typeString.split("_")[0]
 }
 
+function formatSentenceDefn(id) {
+    return '<p>' + stimuli[id]['def'] + '</p><p>Example Sentence: ' +  stimuli[id]['sent'] + '</p>'
+}
 
 
 function range(start, length) { //generates an integer array with specified starting point and length
