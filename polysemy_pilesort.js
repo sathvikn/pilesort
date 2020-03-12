@@ -259,12 +259,8 @@ function dropOneSentence(){
 
         lastClicked = 0;
 
-<<<<<<< HEAD
         $("#warning").addClass('hidden');
         
-=======
-               
->>>>>>> origin/gh-pages
     });
 }
 
