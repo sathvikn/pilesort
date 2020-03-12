@@ -169,19 +169,6 @@ function dropOneSentence(){
     }
 
     $("#next").addClass("disabled");
-    $("#nextdiv").html('<input class="btn btn-info disabled" id="next" style="color:black" type="button" value="New Sentence" /><div id="block" style="position:absolute; left:0; right:0; top:0; bottom:0; zIndex:5"></div>');
-    $("#overlay").hover(function(){
-            $("#warning").removeClass("hidden");
-    }, function(){
-            $("#warning").addClass("hidden");
-    })
-    // $("#next").hover(function(){
-    //         $("#warning").removeClass("hidden");
-    //         $("#next").addClass("disabled");
-    // }, function(){
-    //         $("#warning").addClass("hidden");
-    //         $("#next").removeClass("disabled");
-    // })
     var colorstr = colorlist[sentenceIndex%8];
     var newDivString = ' <div class="draggable" id="';
     var newDiv0 = newDivString.concat (sentenceKeys[sentenceIndex].toString());
@@ -392,14 +379,7 @@ $(function() {
             $("#submit").removeClass("disabled hidden");
          }
          if (sentenceIndex < sentenceKeys.length-1) {
-            $("#nextdiv").html('<input class="btn btn-info" id="next" style="color:black;zIndex=6" type="button" value="New Sentence" />');
-            //$("#next").removeClass("disabled");
-             
-
-
-            //$("#warning").addClass("hidden");
-            //$("#next").html('<div id="alttxt" title="Move the current sentence to proceed" style="position:absolute; left:0; right:0; top:0; bottom:0;"></div>');
-            //$("#alttxt").addClass("disabled");
+            $("#next").removeClass("disabled");
          }
       }
     });
