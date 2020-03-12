@@ -190,7 +190,7 @@ function dropOneSentence(){
         //$(this).css("border-style", "dashed");
         //$("#hover-text" ).text(stimuli[this.id]["sentence"]);
         if((lastClicked != this.id) ) {
-            $("#hover-text" ).html(stimuli[this.id]);
+            $("#hover-text" ).html(stimuli[this.id]['def']);
             $("#hover").css("background-color", $(this).css("background-color"));
             $(this).css("border-style", "dashed");
         }
@@ -206,7 +206,7 @@ function dropOneSentence(){
         //$("#label-text" ).text(stimuli[this.id]["sentence"]);
         lastClicked = this.id;
 
-        $("#label-text" ).html(stimuli[this.id]);
+        $("#label-text" ).html('<p>' + stimuli[this.id]['def'] + '</p><p>Example Sentence: ' +  stimuli[this.id]['sent'] + '</p>');
 
         $("#label").css("background-color", $(this).css("background-color"));
         $(this).css("border-style", "dashed");
