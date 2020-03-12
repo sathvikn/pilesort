@@ -1,7 +1,7 @@
 /*************************************
    firebase references
  *************************************/
-var ref = new Firebase("https://brilliant-heat-3296.firebaseio.com/polysemy_pilesort");
+var ref = new Firebase("https://wordsense-pilesort.firebaseio.com/polysemy_pilesort");
 //var ref = firebase.database().ref().child("polysemy_pilesort");
 var userRef = ref.child("subjectInfo");
 var IPuserRef = ref.child("subjectByIP");
@@ -17,7 +17,7 @@ var userExists;
 /*************************************
    input variables
  *************************************/
-var totalTrials = 6;
+//var totalTrials = 6;
 var currentIndex = 0; //index of current trial. will start indexing at 1, once newTrial() is called.
 var sentenceIndex = 0;
 //var sorted = range(1, totalTrials); //int list starting at 1, with length=totalTrials
@@ -25,8 +25,20 @@ var sentenceIndex = 0;
 //var wordSpace = ["chicken", "shower"]; //list of possible words, in alphabetical order
 //var wordList = shuffle(wordSpace).slice(0,totalTrials); //list of stimuli words for this participant
 //var wordList = ["cell", "figure", "foot", "form", "girl", "home", "paper", "table"];
-var totalWordList = ['case','church','family','feet','question','time'] 
-var wordList = shuffle(totalWordList).slice(0,totalTrials);
+//TODO: Query this from Firebase?
+//var totalWordList = ['case','church','family','feet','question','time'] 
+var totalWordList = []
+var totalTrials = 20
+var wordList = []
+stimuliRef.once("value", function(snapshot) {
+    allStimuli = snapshot.val()
+    Object.keys(allStimuli).forEach(function (key) {
+        totalWordList.push(key)
+    })
+    wordList = shuffle(totalWordList).slice(0, totalTrials);
+})
+
+//var wordList = shuffle(totalWordList).slice(0,totalTrials);
 var stimuli; //stimuli objects associated with current word
 var sentenceKeys = []; //randomized list of sentence keys for current word
 var trialSize = 12; //max number of sentences in each trial
@@ -43,22 +55,27 @@ $(document).ready ( function(){
     if(w >= 800) {
         $(".start-entered").css("left", (w-800)/2);
     }
-    //TODO?: add warning when browser window too small?
     
-    //get user info
+    //get user info 
     getSubjectInfo();
 //
 //         
     //newTrial();
     $("#agree").click(function(){
         $("#consent").addClass("hidden");
-        $("#experiment").removeClass("hidden");
-        newTrial();
+        $("#intro").removeClass("hidden");
+        //newTrial();
     });
 
     $("#decline").click(function(){
         $("#consent").addClass("hidden");
         $("#declinedExperiment").removeClass("hidden");
+    });
+
+    $("#introOK").click(function(){
+        $("#intro").addClass("hidden");
+        $("#experiment").removeClass("hidden");
+        newTrial();
     });
 
     $("#next").click(function(){
@@ -68,8 +85,8 @@ $(document).ready ( function(){
 
 
     $("#submit").click(function() {
+        
         recordTrial();
-        //newTrial();
         
         if(currentIndex <= totalTrials-1){
             newTrial();
@@ -116,11 +133,15 @@ function newTrial() {
     var getStimuli = $.Deferred();
     stimuliRef.child(wordList[currentIndex-1]).once("value", function(snapshot) {
         stimuli = snapshot.val();
-        var inputSize = snapshot.val()["sentences"];
+        var inputSize = snapshot.val()["senses"];
         //stimuli.splice(parseInt(snapshot.key())-1, 0, snapshot.val());
 
         if(inputSize > 0  &&  Object.keys(stimuli).length > inputSize ) {
-            sentenceKeys = sList(inputSize, trialSize);
+            //sentenceKeys = sList(inputSize, trialSize);
+            $.each(stimuli, function(key, value) {
+                if(key!='senses' && key!='type'){sentenceKeys.push(key);}
+            });
+            sentenceKeys = shuffle(sentenceKeys); //randomize
             getStimuli.resolve();
         }
     })
@@ -131,19 +152,11 @@ function newTrial() {
     //var loadSentences = $.Deferred();
     getStimuli.done(function() {
         //load instruction keywords
-    $("#info").html('<b>Instructions: </b>You will see a total of ' +sentenceKeys.length+ ' sentences that include the word <b style="background-color:yellow">' 
-        +wordList[currentIndex-1]+'</b>. Each sentence is represented by a numbered square in the grey canvas below. Drag the squares around in the canvas, such that sentences with similar meanings for "' 
-        +wordList[currentIndex-1]+ '" are grouped closer together. The full content of each sentence will be displayed below the canvas. '
-        + '<p style="text-decoration:underline">Please do not refresh this page until the experiment is finished, make sure your browser window is large enough to accommodate the canvas, and turn off Privacy Badger extension to allow us to save your answers.</p>')
+    $("#info").html('<b>Instructions: </b>You will see a total of ' +sentenceKeys.length+ ' definitions of the word <b style="background-color:yellow">' 
+        + getWordFromType(wordList[currentIndex-1])+'</b>. Each definition is represented by a numbered square in the grey canvas below. The full content of each definition, as well as an example sentence, will be displayed below the canvas. Drag the squares around in the canvas so that: <ul><li><b>The most similar meanings for "' 
+    +getWordFromType(wordList[currentIndex-1])+ '" are closest to each other</b></li><li><b> Definitions with the least similarity are farthest apart</b></li></ul>'+ 'Do not refresh this page until the task is finished, and make sure you can see the whole canvas in your browser.')
 
         dropOneSentence();
-        //loadChoices();
-        //if ($("#rainbow > div").length - 1 == sentenceKeys.length) {loadSentences.resolve();}
-        // $("#next").click(function(){
-        //     sentenceIndex += 1;
-        //     dropOneSentence();
-        // })
-
     })
 }
 
@@ -151,6 +164,10 @@ function newTrial() {
 
 //drag-drop run for one sentence
 function dropOneSentence(){
+    if(sentenceIndex==0){
+        $("#warning").removeClass('hidden');
+    }
+
     $("#next").addClass("disabled");
     $("#nextdiv").html('<input class="btn btn-info disabled" id="next" style="color:black" type="button" value="New Sentence" /><div id="block" style="position:absolute; left:0; right:0; top:0; bottom:0; zIndex:5"></div>');
     $("#overlay").hover(function(){
@@ -168,7 +185,6 @@ function dropOneSentence(){
     var colorstr = colorlist[sentenceIndex%8];
     var newDivString = ' <div class="draggable" id="';
     var newDiv0 = newDivString.concat (sentenceKeys[sentenceIndex].toString());
-    //var newDiv00 = newDiv0.concat('" style= "background-color:',colorstr,';position:absolute; left:500px"><h4>');//,(window.outerWidth)/2, '"><h4>');
     var newDiv00 = newDiv0.concat('" style= "background-color:',colorstr,';position:absolute; left:',((window.innerWidth)/2)-19, 'px"><h4>');
 
     var newDiv = newDiv00.concat(sentenceIndex+1, "</h4></div>");
@@ -177,7 +193,6 @@ function dropOneSentence(){
     lastClicked = sentenceKeys[sentenceIndex].toString();
 
     $( ".draggable" ).draggable({revert:"invalid"});
-    //$("#label-text" ).text(stimuli[sentenceKeys[sentenceIndex].toString()]["sentence"]);
     $("#label-text" ).html(stimuli[sentenceKeys[sentenceIndex].toString()]);    
     $("#label").css("background-color", colorstr);
 
@@ -188,7 +203,8 @@ function dropOneSentence(){
         //$(this).css("border-style", "dashed");
         //$("#hover-text" ).text(stimuli[this.id]["sentence"]);
         if((lastClicked != this.id) ) {
-            $("#hover-text" ).html(stimuli[this.id]);
+           // var defnSentHTML = '<p>' + stimuli[this.id]['def'] + '</p><p>Example Sentence: ' +  stimuli[this.id]['sent'] + '</p>'
+            $("#hover-text" ).html(formatSentenceDefn(this.id));
             $("#hover").css("background-color", $(this).css("background-color"));
             $(this).css("border-style", "dashed");
         }
@@ -203,8 +219,8 @@ function dropOneSentence(){
     .mousedown(function() {
         //$("#label-text" ).text(stimuli[this.id]["sentence"]);
         lastClicked = this.id;
-
-        $("#label-text" ).html(stimuli[this.id]);
+       // var defnSentHTML = '<p>' + stimuli[this.id]['def'] + '</p><p>Example Sentence: ' +  stimuli[this.id]['sent'] + '</p>'
+        $("#label-text" ).html(formatSentenceDefn(this.id));
 
         $("#label").css("background-color", $(this).css("background-color"));
         $(this).css("border-style", "dashed");
@@ -243,7 +259,8 @@ function dropOneSentence(){
 
         lastClicked = 0;
 
-               
+        $("#warning").addClass('hidden');
+        
     });
 }
 
@@ -312,9 +329,8 @@ function getSubjectInfo(){
     // Generate a reference to a new location and add some data using push()
     getLocation.done(function() {
         var checkUser = $.Deferred();
-        //TODO: put back user check.
-        //checkIfUserExists(IPkey, IDkey, checkUser);
-        checkUser.resolve();
+        checkIfUserExists(IPkey, IDkey, checkUser);
+        //checkUser.resolve();
         
 
         var jsonData = {userDisplayLanguage: navigator.language,
@@ -428,8 +444,8 @@ function onCanvasStyle($item) {
 //   });
 // }
 
-function userExistsCallback(IPD, IPDexists) {
-  if (IPDexists) {
+function userExistsCallback(IPD, IPDexists, debug) {
+  if (IPDexists && !debug) {
     //alert('user ' + IP + ' exists!');
     $("#consent").addClass("hidden");
     $("#userExists").removeClass("hidden");
@@ -456,13 +472,16 @@ function checkIfUserExists(IP, workerID, checkUser) {
   //var IPRef = new Firebase(USERS_LOCATION);
   IPuserRef.child(IP).once('value', function(snapshot) {
     var exists1 = (snapshot.val() != null);
-    userExistsCallback(IP, exists1);
+    //TODO: Remove the debug field
+    debug = true;
+    userExistsCallback(IP, exists1, debug);
     IPcheck = "done";
   });
 
   workerIDuserRef.child(workerID).once('value', function(snapshot) {
     var exists2 = (snapshot.val() != null);
-    userExistsCallback(workerID, exists2);
+    debug = true;
+    userExistsCallback(workerID, exists2, debug);
     if (userExists != null && IPcheck != null) {
         checkUser.resolve();
     }
@@ -481,6 +500,13 @@ function keywordsHTML(idString) {
     return displaytxt;
 }
 
+function getWordFromType(typeString) {
+    return typeString.split("_")[0]
+}
+
+function formatSentenceDefn(id) {
+    return '<p>' + stimuli[id]['def'] + '</p><p>Example Sentence: ' +  stimuli[id]['sent'] + '</p>'
+}
 
 
 function range(start, length) { //generates an integer array with specified starting point and length
