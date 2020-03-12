@@ -133,26 +133,26 @@
     <div class="container-fluid">
         <div id="consent" style="text-align:left">
         <h4> 1. Consent to Participate </h4>   
-          This HIT is a psychology experiment being conducted by Stephan Meylan, a graduate student in Professor Tom Griffiths’s Computational Cognitive Science Lab at the University of California, Berkeley. In order to consent to participate, you MUST meet the following criteria:
+          This HIT is a psychology experiment being conducted by Sathvik Nair, an undergraduate student at the University of California, Berkeley, through Professor Mahesh Srinivasan's Language and Cognitive Development Lab. In order to consent to participate, you MUST meet the following criteria:
 <br /><br />
 <ul>
 <li>18 years of age or older.</li>
 <li>Fluent speaker of English.</li>
 <li>Have not participated in this experiment before.</li>
 </ul>
-This study is designed to investigate how people think about different meanings of the same word. You will be asked to arrange a group of sentences for each of several words according to their similarity. The study will take about 15 minutes, and will pay $1.90.
+This study is designed to investigate how people think about different meanings of the same word. You will be asked to arrange a group of definitions for each of several words according to their similarity. The study will take about 15 minutes, <!--and will pay $1.90-->.
 <br /><br />
 Your participation in this research is voluntary. You may refrain from answering any questions that make you uncomfortable and may withdraw your participation at any time without penalty by returning the HIT on MTurk and emailing the experimenter at the address provided below. Participating will provide no direct benefits to you. But, we hope that this research will benefit society at large. Many problems that people can solve very easily are very difficult to automate (to have computers solve). By revealing more about how humans learn and think, our research may help others to build and program computers that can solve these kinds of problems.
 <br /><br />
-An encrypted version of your MTurk worker ID may be connected to individual responses. We will handle responses as confidentially as possible. We cannot however guarantee the confidentiality of information transmitted over the Internet. We will be keeping data collected as part of
+An encrypted version of your <!--MTurk worker--> user ID may be connected to individual responses. We will handle responses as confidentially as possible. We cannot however guarantee the confidentiality of information transmitted over the Internet. We will be keeping data collected as part of
 this experiment indefinitely. Data without any personally identifiable data associated with it will be made available on public research data sharing sites for further analysis.
 <br /><br />
-If you have any questions about the study, feel free to contact Stephan Meylan. They can be reached at <a href="mailto:smeylan@berkeley.edu">smeylan@berkeley.edu</a>. If you have concerns about your rights as a participant in this experiment, please contact UC Berkeley’s Committee for Protection of Human Subjects at (510) 642-7461 or <a href="mailto:subjects@berkeley.edu">subjects@berkeley.edu</a>.
+If you have any questions about the study, feel free to contact Sathvik Nair. They can be reached at <a href="mailto:sathviknair@berkeley.edu">sathviknair@berkeley.edu</a>. If you have concerns about your rights as a participant in this experiment, please contact UC Berkeley’s Committee for Protection of Human Subjects at (510) 642-7461 or <a href="mailto:subjects@berkeley.edu">subjects@berkeley.edu</a>.
 <br /><br />
 By selecting the "Agree to Participate" option below, I acknowledge that I am 18 or older, that I am a fluent speaker of English, that I have not completed this experiment before, that I have read this consent form, and that I agree to take part in the research.
 	<br /><br />
         <h4> 2. System Requirements </h4>
-            Please note that this HIT requires Javascript, and that your computer must be connected to the internet throughout the HIT. Please maximize the browser size for best results.
+            Please note that this <!--HIT-->task requires Javascript, and that your computer must be connected to the Internet throughout the <!--HIT-->task. Please maximize the browser size for best results.
             <br /><br />            
             <input id="agree" class="btn btn-info btn-responsive" style="color:black;text-align:center" type="button" value="Agree to Participate" />
             <input id="decline" class="btn btn-info btn-responsive" style="color:black;text-align:center" type="button" value="Choose not to Participate"/>
@@ -161,14 +161,14 @@ By selecting the "Agree to Participate" option below, I acknowledge that I am 18
 
         <div id='intro' class='start-centered hidden'>
             <p id='intro1' class="bg-info center-block lead" style="font-size:170%; text-align:left;">
-            <b>Introduction: </b>In this HIT, you will be asked to arrange sentences on a canvas, based on how similar the use of a particular word is among those sentences. You may decide that several sentences belong in the same category. In that case, do not stack them in a line; instead, put them in a pile so that every item in the category is roughly the same distance from each other.
+            <b>Introduction: </b>In this <!--HIT--> task, you will be asked to arrange definitions of a word on a canvas, based on how similar you perceive these definitions to be. You may decide that several definitions are equivalent to one another. In that case, do not stack them in a line; instead, put them in a pile so that every item in the category is roughly the same distance from each other.
             </p>
             <img src="demo1.png" style="height: 400px;">
 
             <br><br><br>
 
             <p id='intro2' class="bg-info center-block lead" style="font-size:170%; text-align:left;">
-            Please use the entire canvas space. If a word is its own category, or is between categories, reflect that in your arrangement.
+            Please use the entire canvas space. If a definition is its own category, or is between categories, reflect that in your arrangement.
             </p>
             <img src="demo2.png"  style="height: 400px;">
             <img src="demo3.png"  style="height: 400px;">
@@ -176,7 +176,7 @@ By selecting the "Agree to Participate" option below, I acknowledge that I am 18
             <br><br>
 
             <p id='intro3' class="bg-info center-block lead" style="font-size:170%; text-align:left;">
-            There will be more detailed instructions on the next page as you begin working on the HIT.
+            There will be more detailed instructions on the next page as you begin working on the <!--HIT-->task.
             </p>
 
             <input id="introOK" class="btn btn-info btn-responsive" style="color:black;text-align:center;font-size:170%" type="button" value="Got it." />
@@ -188,7 +188,7 @@ By selecting the "Agree to Participate" option below, I acknowledge that I am 18
         <div id="experiment" class="hidden">
         <div id='header'>
             <p id='info' class="bg-info center-block lead start-centered" style="font-size:120%; text-align:left">
-            You will see a total of n sentences that include the word w. Each sentence is represented by a numbered square in the grey canvas below. Drag the squares around in the canvas, such that sentences with similar meanings for w are grouped closer together. Scroll down to see sentence reminders below the canvas.
+            You will see a total of n definitions of the word w. Each definition is represented by a numbered square in the grey canvas below. Drag the squares around in the canvas, such that the more similar definitions for w are grouped closer together. Scroll down to see sentence reminders below the canvas.
             </p>
             <p id='warning' class='warning hidden'  style="width:300px;position:absolute;top:220px;left:350px;">drag and drop the new sentence to proceed</p>
         </div>
@@ -213,14 +213,14 @@ By selecting the "Agree to Participate" option below, I acknowledge that I am 18
             </div> 
 
             <div id="hover" class="relevantSentence start-centered" style="top:800px">
-                <h4 id="hover-text">Move your cursor close to a number to see the corresponding sentence.</h4>
+                <h4 id="hover-text">Move your cursor close to a number to see the corresponding definition.</h4>
             </div>
         </div>
 
         <div id="finishedExperiment" class="hidden">
             <div class='bg-info center-block lead'>
              <p>
-                    Thank you for participating in the Polysemy experiment! Here is your survey code for Amazon Mechanical Turk:               
+                    Thank you for participating in the Polysemy experiment! <!--Here is your survey code for Amazon Mechanical Turk-->:               
             </p>
             <p id="AMTcode"></p>
             </div>
@@ -229,7 +229,7 @@ By selecting the "Agree to Participate" option below, I acknowledge that I am 18
         <div id="declinedExperiment" class="hidden">
             <div class='bg-info center-block lead'>
              <p>
-            Please use the survey code: 00000000 to return the HIT on Amazon Mechanical Turk, and exit this window. Thank you!      
+            Please <!--use the survey code: 00000000 to return the HIT on Amazon Mechanical Turk, and -->exit this window. Thank you!      
             </p>
         </div>
         </div>
@@ -238,7 +238,7 @@ By selecting the "Agree to Participate" option below, I acknowledge that I am 18
             <div class='bg-info center-block lead'>
              <p>
              This user has already participated in the experiment--please do not participate twice!
-            Please use the survey code: 11111111 to return the HIT on Amazon Mechanical Turk, and exit this window. Thank you!      
+            Please <!--use the survey code: 11111111 to return the HIT on Amazon Mechanical Turk, and --> exit this window. Thank you!      
             </p>
         </div>
         </div>
