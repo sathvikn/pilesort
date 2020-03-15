@@ -28,7 +28,7 @@ var sentenceIndex = 0;
 //TODO: Query this from Firebase?
 //var totalWordList = ['case','church','family','feet','question','time'] 
 var totalWordList = []
-var totalTrials = 20
+var totalTrials = 27
 var wordList = []
 stimuliRef.once("value", function(snapshot) {
     allStimuli = snapshot.val()
@@ -117,7 +117,7 @@ function newTrial() {
     // }
 
     currentIndex += 1;
-    $('#trialnum').text('Trial '+currentIndex.toString()+'/'+totalTrials.toString());
+    $('#trialnum').text('Word '+currentIndex.toString()+'/'+totalTrials.toString());
 
     //clear out old sentences
     $("#sentences").empty();
@@ -167,7 +167,9 @@ function dropOneSentence(){
     if(sentenceIndex==0){
         $("#warning").removeClass('hidden');
     }
+    $("#sensenum").text("Definition " + (sentenceIndex + 1) + " / " + sentenceKeys.length);
 
+    $("#next").addClass("disabled");
     $("#next").addClass("disabled");
     var colorstr = colorlist[sentenceIndex%8];
     var newDivString = ' <div class="draggable" id="';
@@ -485,7 +487,7 @@ function getWordFromType(typeString) {
 }
 
 function formatSentenceDefn(id) {
-    return '<p>' + stimuli[id]['def'] + '</p><p>Example Sentence: ' +  stimuli[id]['sent'] + '</p>'
+    return '<p>' + stimuli[id]['def'] + '</p><p><i>Example Sentence: ' +  stimuli[id]['sent'] + '</i></p>'
 }
 
 
