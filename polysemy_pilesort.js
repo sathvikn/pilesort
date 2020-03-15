@@ -184,6 +184,9 @@ function dropOneSentence(){
     $( ".draggable" ).draggable({revert:"invalid"});
     $("#label-text" ).html(stimuli[sentenceKeys[sentenceIndex].toString()]);    
     $("#label").css("background-color", colorstr);
+    $("#label-text" ).html(formatSentenceDefn(sentenceKeys[sentenceIndex]));
+
+    
 
     $( ".draggable" ).mouseover(function() {
         //$("#label-text" ).text(stimuli[this.id]["sentence"]);
