@@ -458,14 +458,14 @@ function checkIfUserExists(IP, workerID, checkUser) {
   IPuserRef.child(IP).once('value', function(snapshot) {
     var exists1 = (snapshot.val() != null);
     //TODO: Remove the debug field
-    debug = false;
+    debug = getParamFromURL('debug');
     userExistsCallback(IP, exists1, debug);
     IPcheck = "done";
   });
 
   workerIDuserRef.child(workerID).once('value', function(snapshot) {
     var exists2 = (snapshot.val() != null);
-    debug = false;
+    debug = getParamFromURL('debug');
     userExistsCallback(workerID, exists2, debug);
     if (userExists != null && IPcheck != null) {
         checkUser.resolve();
