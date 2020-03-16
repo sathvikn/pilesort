@@ -28,7 +28,7 @@ var sentenceIndex = 0;
 //TODO: Query this from Firebase?
 //var totalWordList = ['case','church','family','feet','question','time'] 
 var totalWordList = []
-var totalTrials = 27
+var totalTrials = 12
 var wordList = []
 stimuliRef.once("value", function(snapshot) {
     allStimuli = snapshot.val()
