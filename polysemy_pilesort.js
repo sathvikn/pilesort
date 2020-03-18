@@ -174,7 +174,7 @@ function dropOneSentence(){
     var colorstr = colorlist[sentenceIndex%8];
     var newDivString = ' <div class="draggable" id="';
     var newDiv0 = newDivString.concat (sentenceKeys[sentenceIndex].toString());
-    var newDiv00 = newDiv0.concat('" style= "background-color:',colorstr,';position:absolute; left:',((window.innerWidth)/2)-19, 'px"><h4>');
+    var newDiv00 = newDiv0.concat('" style= "background-color:',colorstr,';position:absolute; left:400px"><h4>');
 
     var newDiv = newDiv00.concat(sentenceIndex+1, "</h4></div>");
     $( "#sentences" ).append(newDiv);
@@ -328,7 +328,7 @@ function getSubjectInfo(){
         var jsonData = {userDisplayLanguage: navigator.language,
 					userAgent: navigator.userAgent,
 					ipAddress: userIP,
-                    amazonWorkerID: IDkey,
+                    amazonWorkerID: ID,
                     userCountry: country,
                     latitude: lati,
                     longitude: longi,
