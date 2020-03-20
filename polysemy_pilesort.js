@@ -28,7 +28,7 @@ var sentenceIndex = 0;
 //TODO: Query this from Firebase?
 //var totalWordList = ['case','church','family','feet','question','time'] 
 var totalWordList = []
-var totalTrials = 12
+var totalTrials = 15
 var wordList = []
 stimuliRef.once("value", function(snapshot) {
     allStimuli = snapshot.val()
@@ -37,10 +37,9 @@ stimuliRef.once("value", function(snapshot) {
             totalWordList.push(key)
         }
     })
-    wordList = shuffle(totalWordList).slice(0, totalTrials);
+    wordList = shuffle(totalWordList).slice(0, totalTrials - 3);
     wordList = wordList.concat(wordList.sample(2))
     wordList.unshift("bank_n")
-    totalTrials += 3
 })
 
 //var wordList = shuffle(totalWordList).slice(0,totalTrials);
