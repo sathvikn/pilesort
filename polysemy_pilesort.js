@@ -306,7 +306,11 @@ function getSubjectInfo(){
         city = response.city;
 
         IPkey = userIP.toString().split(".").join("_");
-        IDkey = workerID
+        if (workerID) {
+            IDkey = workerID;
+        } else {
+            IDkey = create_UUID();
+        }
 
         
         if (IPkey!=null && IDkey!=null ) {
@@ -542,7 +546,7 @@ function getParamFromURL( name ){
 	if( results == null )
 		return "";
 	else
-		return results[1];
+		return results[1].split('?')[0];
 }
 
 function create_UUID(){
