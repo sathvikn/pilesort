@@ -40,6 +40,7 @@ stimuliRef.once("value", function(snapshot) {
     wordList = shuffle(totalWordList).slice(0, totalTrials);
     wordList = wordList.concat(wordList.sample(2))
     wordList.unshift("bank_n")
+    totalTrials += 3
 })
 
 //var wordList = shuffle(totalWordList).slice(0,totalTrials);
@@ -265,9 +266,10 @@ function dropOneSentence(){
 function recordTrial() {
     if (currentIndex <= 0) {return;}
     var response = getPositions();
+    word = fmtRepeatTrials(wordList, currentIndex);
     trialData = {
         //"inputID":inputID,
-        "inputWord":wordList[currentIndex-1],
+        "inputWord": word,
         "inputSentences":sentenceKeys,
         "userID":userID,
         "response":response,
@@ -489,9 +491,25 @@ function checkIfUserExists(IP, workerID, checkUser) {
 Array.prototype.sample = function(num_values){
     sampled_items = [];
     for(i = 0; i < num_values; i++) {
+        //Randomly sample items from an array
         sampled_items.push(this[Math.floor(Math.random()*this.length)]);
     }
     return sampled_items;
+  }
+
+  function fmtRepeatTrials(wordLst, index) {
+      currWord = wordLst[index - 1]
+      upToWord = wordLst.slice(0, index - 1)
+      previouslySeen = false;
+      upToWord.forEach(function (w) {
+          if(w == currWord) {
+            previouslySeen = true;
+          }
+      })
+      if (previouslySeen) {
+          currWord = currWord + "_repeat";
+      }
+      return currWord
   }
   
 function keywordsHTML(idString) {
