@@ -33,9 +33,13 @@ var wordList = []
 stimuliRef.once("value", function(snapshot) {
     allStimuli = snapshot.val()
     Object.keys(allStimuli).forEach(function (key) {
-        totalWordList.push(key)
+        if (key != "bank_n") {
+            totalWordList.push(key)
+        }
     })
     wordList = shuffle(totalWordList).slice(0, totalTrials);
+    wordList = wordList.concat(wordList.sample(2))
+    wordList.unshift("bank_n")
 })
 
 //var wordList = shuffle(totalWordList).slice(0,totalTrials);
@@ -481,6 +485,15 @@ function checkIfUserExists(IP, workerID, checkUser) {
 /*************************************
    other helper functions
  *************************************/
+
+Array.prototype.sample = function(num_values){
+    sampled_items = [];
+    for(i = 0; i < num_values; i++) {
+        sampled_items.push(this[Math.floor(Math.random()*this.length)]);
+    }
+    return sampled_items;
+  }
+  
 function keywordsHTML(idString) {
     if(idString=="test"){return "test";}
     var keywordList = stimuli[idString]["keywords"];
@@ -499,7 +512,7 @@ function formatSentenceDefn(id) {
 
 function range(start, length) { //generates an integer array with specified starting point and length
     var foo = [];
-    for (var i = 0; i < length; i++) {
+    for (var i = 0; i <= length; i++) {
         foo.push(i+start);
     }
     return foo;
