@@ -289,7 +289,6 @@ function getPositions() {
 
 
 //send IP and location info to firebase
-//¿amazon worker id?
 function getSubjectInfo(){
     var city = null;
     var country = null;
@@ -307,7 +306,7 @@ function getSubjectInfo(){
         city = response.city;
 
         IPkey = userIP.toString().split(".").join("_");
-        IDkey = create_UUID()
+        IDkey = workerID
 
         
         if (IPkey!=null && IDkey!=null ) {
@@ -328,7 +327,7 @@ function getSubjectInfo(){
         var jsonData = {userDisplayLanguage: navigator.language,
 					userAgent: navigator.userAgent,
 					ipAddress: userIP,
-                    amazonWorkerID: IDkey,
+                    qualtricsWorkerID: IDkey,
                     userCountry: country,
                     latitude: lati,
                     longitude: longi,
