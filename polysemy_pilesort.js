@@ -30,16 +30,19 @@ var sentenceIndex = 0;
 var totalWordList = []
 var totalTrials = 15
 var wordList = []
+var homonyms = ['foot_n', 'table_n', 'plane_n', 'degree_n', 'right_n', 'model_n']
+var trainWords = ['bass_n', 'bank_n']
 stimuliRef.once("value", function(snapshot) {
     allStimuli = snapshot.val()
     Object.keys(allStimuli).forEach(function (key) {
-        if (key != "bank_n") {
+        if (trainWords.indexOf(key) < 0 && homonyms.indexOf(key) < 0) {
             totalWordList.push(key)
         }
     })
-    wordList = shuffle(totalWordList).slice(0, totalTrials - 3);
-    wordList = wordList.concat(wordList.sample(2))
-    wordList.unshift("bank_n")
+    shared = homonyms.sample(3)
+    test = shuffle(totalWordList).slice(0, 8);
+    reset = shared.sample(2)
+    wordList = trainWords.concat(shared).concat(test).concat(reset)
 })
 
 //var wordList = shuffle(totalWordList).slice(0,totalTrials);
@@ -487,16 +490,20 @@ function checkIfUserExists(IP, workerID, checkUser) {
    other helper functions
  *************************************/
 
-Array.prototype.sample = function(num_values){
-    sampled_items = [];
-    for(i = 0; i < num_values; i++) {
-        //Randomly sample items from an array
-        sampled_items.push(this[Math.floor(Math.random()*this.length)]);
+Array.prototype.sample = function(numValues){
+    //Samples numValues from the array without replacement
+    var sampledItems = [];
+    while (sampledItems.length != numValues) {
+        var randomElem = this[Math.floor(Math.random() * this.length)]
+        if (sampledItems.indexOf(randomElem) < 0) {
+            sampledItems.push(randomElem)
+        }
     }
-    return sampled_items;
+    return sampledItems;
   }
 
   function fmtRepeatTrials(wordLst, index) {
+      //If a word has been seen before, add a _repeat flag for FB
       currWord = wordLst[index - 1]
       upToWord = wordLst.slice(0, index - 1)
       previouslySeen = false;
