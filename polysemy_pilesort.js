@@ -109,7 +109,7 @@ $(document).ready ( function(){
                 $("#spinner").remove();
                // $("#dropzone").removeClass("hidden")
                 newTrial();
-            }, 5000);
+            }, 1000);
 
             //newTrial();
         } else {
