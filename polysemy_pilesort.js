@@ -31,7 +31,7 @@ var totalWordList = []
 var totalTrials = 15
 var wordList = []
 var homonyms = ['foot_n', 'table_n', 'plane_n', 'degree_n', 'right_n', 'model_n']
-var trainWords = ['bass_n', 'bank_n']
+var trainWords = ['bank_n', 'bass_n']
 stimuliRef.once("value", function(snapshot) {
     allStimuli = snapshot.val()
     Object.keys(allStimuli).forEach(function (key) {
@@ -96,7 +96,22 @@ $(document).ready ( function(){
         recordTrial();
         
         if(currentIndex <= totalTrials-1){
-            newTrial();
+            var dropSpinner = $.Deferred();
+            $("#sentences").empty();
+            //$("#dropzone").addClass("hidden");
+
+            spinner = '<a id = "spinner" style= "height: 80vh; width: 20vw;"href="http://www.lowgif.com/d35d94c490e598e3.html" target="_blank"><img id="editableimage2" style = "height: 200px; margin-top: 50px;" src="http://cdn.lowgif.com/full/d35d94c490e598e3-loading-gif-transparent-loading-gif.gif" border="0" alt="Loading Gif Transparent Loading Gif"/></a>'
+
+
+            $("#dropzone").append(spinner);
+
+            setTimeout(function(){ 
+                $("#spinner").remove();
+               // $("#dropzone").removeClass("hidden")
+                newTrial();
+            }, 5000);
+
+            //newTrial();
         } else {
             thisUserRef.update({ completed: 1 });
             $("#experiment").addClass("hidden");
@@ -122,12 +137,12 @@ function newTrial() {
     //     $("#warning").removeClass("hidden");
     //     $("#warning").html("<p style='color:black'>please only work on this experiment on a computer, and make sure your browser window is large enough to accomondate the canvas.</p>");
     // }
+    $("#dropzone").removeClass("hidden")
 
     currentIndex += 1;
     $('#trialnum').text('Word '+currentIndex.toString()+'/'+totalTrials.toString());
 
     //clear out old sentences
-    $("#sentences").empty();
 
     //reset variables
     stimuli = {};
@@ -135,7 +150,7 @@ function newTrial() {
     sentenceKeys = [];
     sentenceIndex = 0;
     $("#submit").addClass("disabled hidden");
-    $("#next").addClass("disabled").removeClass("hidden");    
+    $("#next").addClass("disabled").removeClass("hidden");   
     //get stimuli json
     var getStimuli = $.Deferred();
     stimuliRef.child(wordList[currentIndex-1]).once("value", function(snapshot) {
