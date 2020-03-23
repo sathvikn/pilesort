@@ -134,26 +134,44 @@
     <div class="container-fluid">
         <div id="consent" style="text-align:left">
         <h4> 1. Consent to Participate </h4>   
-          This HIT is a psychology experiment being conducted by Sathvik Nair, an undergraduate student at the University of California, Berkeley, through Professor Mahesh Srinivasan's Language and Cognitive Development Lab. In order to consent to participate, you MUST meet the following criteria:
+          This HIT is a psychology experiment being conducted by Sathvik Nair, an undergraduate student at the University of California, Berkeley, 
+          through Professor Mahesh Srinivasan's Language and Cognitive Development Lab. In order to consent to participate, you MUST meet the following criteria:
 <br /><br />
 <ul>
 <li>18 years of age or older.</li>
 <li>Fluent speaker of English.</li>
+<li>Enrolled in a Psychology course at UC Berkeley with RPP credit</li>
 <li>Have not participated in this experiment before.</li>
 </ul>
-This study is designed to investigate how people think about different meanings of the same word. You will be asked to arrange a group of definitions for each of several words according to their similarity. The study will take about 15 minutes<!--and will pay $1.90-->.
+This study is designed to investigate how people think about different meanings of the same word. 
+You will be asked to arrange a group of definitions for each of several words according to their similarity.
+ The study will take about 15 minutes<!--and will pay $1.90-->.
 <br /><br />
-Your participation in this research is voluntary. You may refrain from answering any questions that make you uncomfortable and may withdraw your participation at any time without penalty by closing the window and emailing the experimenter at the address provided below. Participating will provide no direct benefits to you. But, we hope that this research will benefit society at large. Many problems that people can solve very easily are very difficult to automate (to have computers solve). By revealing more about how humans learn and think, our research may help others to build and program computers that can solve these kinds of problems.
+Your participation in this research is voluntary. You may refrain from answering any questions that make you uncomfortable
+ and may withdraw your participation at any time without penalty by closing the window and emailing the experimenter at the address provided below. 
+ As this experiment is part of the <a href = "https://psychology.berkeley.edu/students/undergraduate-program/research-participation-program", target = 'blank'>Research Participation Program (RPP)</a>, 
+ participating will directly benefit you in the form of extra credit for a course in the Psychology department this semester. 
+ But, we hope that this research will benefit society at large. Many problems that people can solve very easily are very difficult to automate 
+ (to have computers solve). By revealing more about how humans learn and think, our research may help others to build and program computers 
+ that can solve these kinds of problems.
 <br /><br />
-An encrypted version of your <!--MTurk worker--> user ID may be connected to individual responses. We will handle responses as confidentially as possible. We cannot however guarantee the confidentiality of information transmitted over the Internet. We will be keeping data collected as part of
-this experiment indefinitely. Data without any personally identifiable data associated with it will be made available on public research data sharing sites for further analysis.
+An encrypted version of your <!--MTurk worker--> user ID may be connected to individual responses. We will handle
+ responses as confidentially as possible. We cannot however guarantee the confidentiality of information transmitted over the Internet.
+  We will be keeping data collected as part of this experiment indefinitely. Data without any personally identifiable data 
+  associated with it will be made available on public research data sharing sites for further analysis.
 <br /><br />
-If you have any questions about the study, feel free to contact Sathvik Nair. They can be reached at <a href="mailto:sathviknair@berkeley.edu">sathviknair@berkeley.edu</a>. If you have concerns about your rights as a participant in this experiment, please contact UC Berkeley’s Committee for Protection of Human Subjects at (510) 642-7461 or <a href="mailto:subjects@berkeley.edu">subjects@berkeley.edu</a>.
+If you have any questions about the study, feel free to contact Sathvik Nair. 
+They can be reached at <a href="mailto:sathviknair@berkeley.edu">sathviknair@berkeley.edu</a>. 
+If you have concerns about your rights as a participant in this experiment, please contact UC Berkeley’s Committee for Protection of 
+Human Subjects at (510) 642-7461 or <a href="mailto:subjects@berkeley.edu">subjects@berkeley.edu</a>.
 <br /><br />
-By selecting the "Agree to Participate" option below, I acknowledge that I am 18 or older, that I am a fluent speaker of English, that I have not completed this experiment before, that I have read this consent form, and that I agree to take part in the research.
+By selecting the "Agree to Participate" option below, I acknowledge that I am 18 or older, that I am a 
+fluent speaker of English, that I have not completed this experiment before, that I have read this consent form, and that 
+I agree to take part in the research for RPP credit.
 	<br /><br />
         <h4> 2. System Requirements </h4>
-            Please note that this <!--HIT-->task requires Javascript, and that your device must be connected to the Internet throughout the <!--HIT-->task. Please maximize the browser size and use either a computer or tablet for best results.
+            Please note that this <!--HIT-->task requires Javascript, and that your device must be connected to the 
+            Internet throughout the <!--HIT-->task. Please maximize the browser size and use either a computer or tablet for best results.
             <br /><br />            
             <input id="agree" class="btn btn-info btn-responsive" style="color:black;text-align:center" type="button" value="Agree to Participate" />
             <input id="decline" class="btn btn-info btn-responsive" style="color:black;text-align:center" type="button" value="Choose not to Participate"/>
@@ -162,22 +180,35 @@ By selecting the "Agree to Participate" option below, I acknowledge that I am 18
 
         <div id='intro' class='start-centered hidden'>
             <p id='intro1' class="bg-info center-block lead" style="font-size:170%; text-align:left;">
-            <b>Introduction: </b>In this <!--HIT--> task, you will be asked to arrange definitions of a word on a canvas, based on how similar you perceive these definitions to be. You may decide that several definitions are equivalent to one another. In that case, do not stack them in a line; instead, put them in a pile so that every item in the category is roughly the same distance from each other.
+            <b>Introduction: </b> In this task, you will be asked to arrange different definitions of a word on a canvas, 
+            based on how similar you perceive these definitions to be. Tokens for similar definitions should be placed close together, 
+            while tokens for dissimilar definitions should be placed far apart. For example, consider three different definitions for the word <b>bank:</b>
+            <br> - a financial institution<br>- a store of goods<br>- a riverside<br>
+            When presented with these, you would want an arrangement like:
             </p>
-            <img src="demo1.png" style="height: 400px;">
+            <img src="bank_ex.png" style="height: 400px;">
 
             <br><br><br>
 
             <p id='intro2' class="bg-info center-block lead" style="font-size:170%; text-align:left;">
-            Please use the entire canvas space. If a definition is its own category, or is between categories, reflect that in your arrangement.
+                Or, for example, if you got these definitions for <b>chicken:</b>
+                <br>- a bird<br>- a meat<br>
+                You would arrange the tokens something like this:
+
             </p>
-            <img src="demo2.png"  style="height: 400px;">
-            <img src="demo3.png"  style="height: 400px;">
+            <img src="chicken_ex.png"  style="height: 400px;">
+            <p id='intro3' class="bg-info center-block lead" style="font-size:170%; text-align:left;">In the experiment, you will be presented with each sentence
+                 one at a time to place. When you click on a token it will display the sentence meaning; when you drag it close to another token 
+                 it will show the definition and an example sentence of that token. You may need to change the existing arrangement depending on the new 
+                 definitions that you need to place. You may decide that several definitions are equivalent to one another. In that case, do not stack them 
+                 in a line; instead, put them in a pile so that every item in the category is roughly the same distance from each other.
+            </p>
+            <img src="block_pile.png"  style="height: 400px;">
 
             <br><br>
 
-            <p id='intro3' class="bg-info center-block lead" style="font-size:170%; text-align:left;">
-            There will be more detailed instructions on the next page as you begin working on the <!--HIT-->task. The first two words you receive are meant to give you an idea of how the experiment works, so will not be considered when looking at results.
+            <p id='intro4' class="bg-info center-block lead" style="font-size:170%; text-align:left;">The next page includes more detailed instructions to help you 
+                complete the task. The first two words are for practice.
             </p>
 
             <input id="introOK" class="btn btn-info btn-responsive" style="color:black;text-align:center;font-size:170%" type="button" value="Got it." />
@@ -189,7 +220,9 @@ By selecting the "Agree to Participate" option below, I acknowledge that I am 18
         <div id="experiment" class="hidden">
         <div id='header'>
             <p id='info' class="bg-info center-block lead start-centered" style="font-size:120%; text-align:left">
-            You will see a total of n definitions of the word w. Each definition is represented by a numbered square in the grey canvas below. Drag the squares around in the canvas, such that the more similar definitions for w are grouped closer together. Scroll down to see sentence reminders below the canvas.
+            You will see a total of n definitions of the word w. Each definition is represented by a numbered square in the grey canvas below.
+             Drag the squares around in the canvas, such that the more similar definitions for w are grouped closer together. 
+             Scroll down to see sentence reminders below the canvas.
             </p>
             <p id='warning' class='warning hidden'  style="width:300px;position:absolute;top:220px;left:500px;">drag and drop the new sentence to proceed</p>
         </div>
