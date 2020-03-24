@@ -28,7 +28,7 @@ var sentenceIndex = 0;
 //TODO: Query this from Firebase?
 //var totalWordList = ['case','church','family','feet','question','time'] 
 var totalWordList = []
-var totalTrials = 15
+var totalTrials = 18
 var wordList = []
 var homonyms = ['foot_n', 'table_n', 'plane_n', 'degree_n', 'right_n', 'model_n']
 var trainWords = ['bank_n', 'bass_n']
@@ -39,10 +39,9 @@ stimuliRef.once("value", function(snapshot) {
             totalWordList.push(key)
         }
     })
-    shared = homonyms.sample(3)
     test = shuffle(totalWordList).slice(0, 8);
-    reset = shared.sample(2)
-    wordList = trainWords.concat(shared).concat(test).concat(reset)
+    redo = test.sample(2)
+    wordList = trainWords.concat(homonyms).concat(test).concat(redo)
 })
 
 //var wordList = shuffle(totalWordList).slice(0,totalTrials);
@@ -283,11 +282,14 @@ function dropOneSentence(){
 function recordTrial() {
     if (currentIndex <= 0) {return;}
     var response = getPositions();
-    word = fmtRepeatTrials(wordList, currentIndex);
+    //word = fmtRepeatTrials(wordList, currentIndex);
+    trialType = getTrialType(currentIndex - 1)
     trialData = {
         //"inputID":inputID,
-        "inputWord": word,
+        "inputWord": wordList[currentIndex - 1],
+        "trialIndex": currentIndex,
         "inputSentences":sentenceKeys,
+        "trialType": trialType,
         "userID":userID,
         "response":response,
     };
@@ -517,7 +519,19 @@ Array.prototype.sample = function(numValues){
     return sampledItems;
   }
 
-  function fmtRepeatTrials(wordLst, index) {
+  function getTrialType(index) {
+      if (index == 0 || index == 1) {
+          return "training"
+      } else if (index >= 2 && index < 8) {
+          return "shared"
+      } else if (index >= 8 && index < 16) {
+          return "test"
+      } else {
+          return "repeat"
+      }
+  }
+
+  /*function fmtRepeatTrials(wordLst, index) {
       //If a word has been seen before, add a _repeat flag for FB
       currWord = wordLst[index - 1]
       upToWord = wordLst.slice(0, index - 1)
@@ -531,7 +545,7 @@ Array.prototype.sample = function(numValues){
           currWord = currWord + "_repeat";
       }
       return currWord
-  }
+  }*/
   
 function keywordsHTML(idString) {
     if(idString=="test"){return "test";}
