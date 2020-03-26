@@ -18,9 +18,14 @@
         <!--   }; -->
         <!--   firebase.initializeApp(config); -->
         <!-- </script> -->
+        <script src="https://browser.sentry-cdn.com/5.15.0/bundle.min.js" integrity="sha384-+ysfQckQvwCB5SppH41IScIz/Iynt2pePnJNMl+D7ZOzDJ+VYhQEuwB0pA60IDM0" crossorigin="anonymous"></script>
+       <script>Sentry.init({ dsn: 'https://ceebed7d2841471f84da8524185d353d@sentry.io/5176565'});
+       </script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>        
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
         <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+        
 
         <script src="https://cdn.ravenjs.com/3.9.1/raven.min.js"></script>
         <script  type='text/javascript'>Raven.config('https://2d07026bd1144f7fbe40b39318b04133@sentry.io/124988').install()</script>
@@ -175,7 +180,7 @@ I agree to take part in the research for RPP credit.
 	<br /><br />
         <h4> 2. System Requirements </h4>
             Please note that this <!--HIT-->task requires Javascript, and that your device must be connected to the 
-            Internet throughout the <!--HIT-->task. Please maximize the browser size and use either a computer or tablet for best results.
+            Internet throughout the <!--HIT-->task. You must do this task on a supported browser (Chrome, Firefox, or Safari) on a computer for best results.
             <br /><br />            
             <input id="agree" class="btn btn-info btn-responsive" style="color:black;text-align:center" type="button" value="Agree to Participate" />
             <input id="decline" class="btn btn-info btn-responsive" style="color:black;text-align:center" type="button" value="Choose not to Participate"/>
@@ -188,8 +193,8 @@ I agree to take part in the research for RPP credit.
             based on how similar you perceive these definitions to be. Tokens for similar definitions should be placed close together, 
             while tokens for dissimilar definitions should be placed far apart. For example, consider three different definitions for the word <b>bank:</b>
             <br> &emsp; - a financial institution<br>&emsp; - a store of goods<br>&emsp; - a riverside<br>
-            When presented with these, you might think that "store of goods" and "financial institution" are more similar to one another than "riverside," so you might arrange 
-            the tokens representing the definitions on the canvas like so:
+            When presented with these, you might think that "store of goods" and "financial institution" are more similar to one another than "riverside," so you might arrange
+            the tokens representing the definitions by dragging and dropping on the canvas so that they look like this: 
             <img src="bank_ex.png"  style="height: 380px;width: 1050px;">
 
             </p>

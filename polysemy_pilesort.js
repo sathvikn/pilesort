@@ -57,6 +57,7 @@ var lastClicked;
 $(document).ready ( function(){
 //     $("#consent").html(consentHTML);
 //
+  
     var w = window.innerWidth;
     if(w >= 800) {
         $(".start-entered").css("left", (w-800)/2);
