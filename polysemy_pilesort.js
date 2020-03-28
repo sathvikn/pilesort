@@ -50,6 +50,8 @@ var sentenceKeys = []; //randomized list of sentence keys for current word
 var trialSize = 12; //max number of sentences in each trial
 var colorlist = ["#C4E17F", "#DB9DBE", "#FECF71", "#F0776C", "#F7FDCA", "#669AE1", "#C49CDE", "#62C2E4"];
 var lastClicked;
+var previousPositions;
+var changesForTrial;
 
 /*************************************
     main
@@ -86,13 +88,18 @@ $(document).ready ( function(){
     });
 
     $("#next").click(function(){
+            if (sentenceIndex > 0) {
+                incrementChangedPositions();
+            }
+            previousPositions = getPositions(sentenceIndex)
             sentenceIndex += 1;
             dropOneSentence();
     })
 
 
     $("#submit").click(function() {
-        
+
+        incrementChangedPositions();
         recordTrial();
         
         if(currentIndex <= totalTrials-1){
@@ -149,6 +156,7 @@ function newTrial() {
     inputSize = 0;
     sentenceKeys = [];
     sentenceIndex = 0;
+    changesForTrial = 0;
     $("#submit").addClass("disabled hidden");
     $("#next").addClass("disabled").removeClass("hidden");   
     //get stimuli json
@@ -157,7 +165,6 @@ function newTrial() {
         stimuli = snapshot.val();
         var inputSize = snapshot.val()["senses"];
         //stimuli.splice(parseInt(snapshot.key())-1, 0, snapshot.val());
-
         if(inputSize > 0  &&  Object.keys(stimuli).length > inputSize ) {
             //sentenceKeys = sList(inputSize, trialSize);
             $.each(stimuli, function(key, value) {
@@ -282,7 +289,7 @@ function dropOneSentence(){
 //function recordTrial(response, inputID) {
 function recordTrial() {
     if (currentIndex <= 0) {return;}
-    var response = getPositions();
+    var response = getPositions(sentenceIndex);
     //word = fmtRepeatTrials(wordList, currentIndex);
     trialType = getTrialType(currentIndex - 1)
     trialData = {
@@ -293,13 +300,14 @@ function recordTrial() {
         "trialType": trialType,
         "userID":userID,
         "response":response,
+        "timesPrevTrialsChanged": changesForTrial
     };
     trialRef.push(trialData);
 }
 
-function getPositions() {
+function getPositions(index) {
     var positionsJSON = new Object();
-    for (var i=0; i<sentenceKeys.length; i++) {
+    for (var i=0; i<=index; i++) {
         var itemStr = $("#"+sentenceKeys[i])[0].outerHTML;
         var startL = itemStr.indexOf("left");
         var endL = itemStr.indexOf(';', startL);
@@ -311,6 +319,15 @@ function getPositions() {
     }
     return positionsJSON
 }
+
+function incrementChangedPositions() {
+    currPositions = getPositions(sentenceIndex - 1);
+    if (JSON.stringify(currPositions) != JSON.stringify(previousPositions)) {
+        changesForTrial += 1
+    }
+}
+
+
 
 
 
