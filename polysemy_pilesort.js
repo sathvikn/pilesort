@@ -323,6 +323,7 @@ function getSubjectInfo(){
     var IDkey;
     var lati;
     var longi;
+    var hashedIP;
 
     $.get("https://wordful-flask.herokuapp.com/ip", function(response) {
         country = response.country_code;
@@ -331,7 +332,9 @@ function getSubjectInfo(){
         longi =  response.longitude;
         city = response.city;
 
-        IPkey = userIP.toString().split(".").join("_");
+        //IPkey = userIP.toString().split(".").join("_");
+        hashedIP = stringToHash(userIP)
+        IPkey = hashedIP
         if (workerID) {
             IDkey = workerID;
         } else {
@@ -345,6 +348,7 @@ function getSubjectInfo(){
         }
     }, "json")
 
+
     
 
     // Generate a reference to a new location and add some data using push()
@@ -356,7 +360,7 @@ function getSubjectInfo(){
 
         var jsonData = {userDisplayLanguage: navigator.language,
 					userAgent: navigator.userAgent,
-					ipAddress: userIP,
+					ipAddress: hashedIP,
                     qualtricsWorkerID: IDkey,
                     userCountry: country,
                     latitude: lati,
@@ -531,6 +535,20 @@ Array.prototype.sample = function(numValues){
           return "repeat"
       }
   }
+  function stringToHash(string) { 
+                  
+    var hash = 0; 
+      
+    if (string.length == 0) return hash; 
+      
+    for (i = 0; i < string.length; i++) { 
+        char = string.charCodeAt(i); 
+        hash = ((hash << 5) - hash) + char; 
+        hash = hash & hash; 
+    } 
+      
+    return hash; 
+} 
 
   /*function fmtRepeatTrials(wordLst, index) {
       //If a word has been seen before, add a _repeat flag for FB
