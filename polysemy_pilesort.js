@@ -120,6 +120,7 @@ $(document).ready ( function(){
 
             //newTrial();
         } else {
+            thisUserRef.update({ endedAt: Firebase.ServerValue.TIMESTAMP });
             thisUserRef.update({ completed: 1 });
             $("#experiment").addClass("hidden");
             $("#finishedExperiment").removeClass("hidden");
