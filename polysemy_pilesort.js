@@ -183,8 +183,8 @@ function newTrial() {
     getStimuli.done(function() {
         //load instruction keywords
     $("#info").html('<b>Instructions: </b>You will see a total of ' +sentenceKeys.length+ ' definitions of the word <b style="background-color:yellow">' 
-        + getWordFromType(wordList[currentIndex-1])+'</b>. Each definition is represented by a numbered square in the grey canvas below. The full content of each definition, as well as an example sentence, will be displayed below the canvas. Drag the squares around in the canvas so that: <ul><li><b>The most similar meanings for "' 
-    +getWordFromType(wordList[currentIndex-1])+ '" are closest to each other</b></li><li><b> Definitions with the least similarity are farthest apart</b></li></ul>'+ 'You may see the same word twice, so please ensure these two trials are as consistent as possible. Do not refresh this page until the task is finished, and make sure you can see the whole canvas in your browser.')
+        + getWordFromType(wordList[currentIndex-1])+'</b>. Each definition is represented by a numbered square in the grey canvas below. The full content of each definition, as well as an example sentence, will be displayed below the canvas. Drag the squares around in the canvas so that: <ul><li><b>The most closely related meanings for "' 
+    +getWordFromType(wordList[currentIndex-1])+ '" are closest to each other</b></li><li><b> Definitions that are related the least are farthest apart</b></li></ul>'+ 'You may see the same word twice, so please ensure these two trials are as consistent as possible. Do not refresh this page until the task is finished, and make sure you can see the whole canvas in your browser.')
 
         dropOneSentence();
     })
