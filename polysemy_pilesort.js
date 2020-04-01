@@ -88,13 +88,21 @@ $(document).ready ( function(){
     });
 
     $("#next").click(function(){
-            if (sentenceIndex > 0) {
-                incrementChangedPositions();
-            }
-            previousPositions = getPositions(sentenceIndex)
-            sentenceIndex += 1;
+        var updatingPositions = $.Deferred();
+        updatePositionData(updatingPositions)
+        updatingPositions.done(function() {
             dropOneSentence();
+        })
     })
+
+    function updatePositionData(deferredObj) {
+        if (sentenceIndex > 0) {
+            incrementChangedPositions();
+        }
+        previousPositions = getPositions(sentenceIndex)
+        sentenceIndex += 1;
+        deferredObj.resolve()
+    }
 
 
     $("#submit").click(function() {
