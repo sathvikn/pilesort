@@ -192,8 +192,8 @@ function newTrial() {
         //load instruction keywords
     $("#info").html('<b>Instructions: </b>You will see a total of ' +sentenceKeys.length+ ' definitions of the word <b style="background-color:yellow">' 
         + getWordFromType(wordList[currentIndex-1])+'</b>. Each definition is represented by a numbered square in the grey canvas below. The full content of each definition, as well as an example sentence, will be displayed below the canvas. Drag the squares around in the canvas so that: <ul><li><b>The most closely related meanings for "' 
-    +getWordFromType(wordList[currentIndex-1])+ '" are closest to each other</b></li><li><b> Definitions that are related the least are farthest apart</b></li></ul>'+ 'Remember: Please consider each definition carefully when placing it on the panel. You may need to adjust the positions of definitions as you receive new ones to place.' +
-     '<p color = "red">Some words will be presented twice to see if your answers are consistent.</p> Do not refresh this page until the task is finished, and make sure you can see the whole canvas in your browser.')
+    +getWordFromType(wordList[currentIndex-1])+ '" are closest to each other</b></li><li><b> Definitions that are related the least are farthest apart</b></li></ul>'+ 'Remember: Please consider each definition for <b>' + getWordFromType(wordList[currentIndex-1]) + '</b> carefully when placing it on the panel. You may need to adjust the positions of definitions as you receive new ones to place.' +
+     '<p class="warning">Some words will be presented twice to see if your answers are consistent.</p> Do not refresh this page until the task is finished, and make sure you can see the whole canvas in your browser.')
 
         dropOneSentence();
     })
