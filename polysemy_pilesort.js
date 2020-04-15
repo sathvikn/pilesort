@@ -132,6 +132,10 @@ $(document).ready ( function(){
             thisUserRef.update({ completed: 1 });
             $("#experiment").addClass("hidden");
             $("#finishedExperiment").removeClass("hidden");
+            url = "https://ucberkeley.sona-systems.com/webstudy_credit.aspx?experiment_id=488&credit_token=305de44925e04fbba47b4520c8dbdf60&survey_code="
+            url = url + workerID
+
+            $("#RPPcode").html("Please click <a href = '" + url + "'>this link</a> to receive credit.")
             return;
         }
     })
